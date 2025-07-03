@@ -36,6 +36,7 @@ declare namespace google {
       constructor(options?: MarkerOptions);
       setMap(map: Map | null): void;
       getPosition(): LatLng | undefined;
+      addListener(eventName: string, handler: () => void): void;
     }
 
     interface MarkerOptions {
@@ -64,13 +65,20 @@ declare namespace google {
     }
 
     interface Symbol {
-      path: string;
+      path: SymbolPath;
       fillColor?: string;
       fillOpacity?: number;
       strokeColor?: string;
-      strokeOpacity?: number;
       strokeWeight?: number;
       scale?: number;
+    }
+
+    enum SymbolPath {
+      CIRCLE = 0,
+      FORWARD_CLOSED_ARROW = 1,
+      FORWARD_OPEN_ARROW = 2,
+      BACKWARD_CLOSED_ARROW = 3,
+      BACKWARD_OPEN_ARROW = 4
     }
 
     class Size {

@@ -1,3 +1,4 @@
+/// <reference path="../types/google-maps.d.ts" />
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Card } from './ui/card';
@@ -65,7 +66,7 @@ export const MapContainer = () => {
   ];
 
   const loadGoogleMaps = (apiKey: string) => {
-    if (window.google) {
+    if ((window as any).google) {
       initializeMap();
       return;
     }
@@ -84,9 +85,9 @@ export const MapContainer = () => {
   };
 
   const initializeMap = () => {
-    if (!mapRef.current || !window.google) return;
+    if (!mapRef.current || !(window as any).google) return;
 
-    const mapInstance = new google.maps.Map(mapRef.current, {
+    const mapInstance = new (window as any).google.maps.Map(mapRef.current, {
       center: { lat: 37.7749, lng: -122.4194 },
       zoom: 12,
       styles: [
@@ -130,12 +131,12 @@ export const MapContainer = () => {
 
     // Add markers for digital assets
     digitalAssets.forEach(asset => {
-      const marker = new google.maps.Marker({
+      const marker = new (window as any).google.maps.Marker({
         position: { lat: asset.lat, lng: asset.lng },
         map: mapInstance,
         title: asset.name,
         icon: {
-          path: google.maps.SymbolPath.CIRCLE,
+          path: (window as any).google.maps.SymbolPath.CIRCLE,
           scale: 12,
           fillColor: asset.status === 'active' ? '#10b981' : asset.status === 'maintenance' ? '#f59e0b' : '#ef4444',
           fillOpacity: 1,
@@ -176,7 +177,7 @@ export const MapContainer = () => {
     }
   };
 
-  if (!isApiLoaded && !window.google) {
+  if (!isApiLoaded && !(window as any).google) {
     return (
       <div className="space-y-6">
         <Card className="p-6 bg-slate-800 border-slate-700">
