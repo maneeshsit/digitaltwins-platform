@@ -18,7 +18,7 @@ const Index = () => {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <Cpu className="w-8 h-8 text-green-400" />
-                <h1 className="text-2xl font-bold text-white">Digital Twin Platform</h1>
+                <h1 className="text-2xl font-bold text-white">Digital Twins Platform</h1>
               </div>
               <div className="flex items-center space-x-2 text-sm text-green-400">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
