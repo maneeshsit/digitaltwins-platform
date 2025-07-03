@@ -1,3 +1,4 @@
+
 /// <reference path="../types/google-maps.d.ts" />
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -21,7 +22,7 @@ interface DigitalAsset {
 
 export const MapContainer = () => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [map, setMap] = useState<any>(null);
   const [mapApiKey, setMapApiKey] = useState('');
   const [isApiLoaded, setIsApiLoaded] = useState(false);
   const [selectedAsset, setSelectedAsset] = useState<DigitalAsset | null>(null);
