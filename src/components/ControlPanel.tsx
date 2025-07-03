@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
@@ -17,6 +16,7 @@ import {
   Database,
   Network
 } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
 
 interface SystemControl {
   id: string;
@@ -29,6 +29,8 @@ interface SystemControl {
 }
 
 export const ControlPanel = () => {
+  const { toast } = useToast();
+  
   const [controls, setControls] = useState<SystemControl[]>([
     {
       id: 'auto-sync',
@@ -97,6 +99,12 @@ export const ControlPanel = () => {
           : control
       )
     );
+    
+    const control = controls.find(c => c.id === id);
+    toast({
+      title: "Control Updated",
+      description: `${control?.name} ${control?.enabled ? 'disabled' : 'enabled'}`,
+    });
   };
 
   const handleSliderChange = (id: string, value: number[]) => {
@@ -107,28 +115,54 @@ export const ControlPanel = () => {
           : control
       )
     );
+    
+    const control = controls.find(c => c.id === id);
+    toast({
+      title: "Setting Adjusted",
+      description: `${control?.name} set to ${value[0]}`,
+    });
   };
 
   const handleSystemAction = (action: string) => {
     console.log(`Executing system action: ${action}`);
-    // Simulate system actions
+    
     switch (action) {
       case 'restart-simulation':
         setSystemStatus(prev => ({ ...prev, simulationRunning: false }));
+        toast({
+          title: "Simulation Restarting",
+          description: "Digital twin simulation is being restarted...",
+        });
         setTimeout(() => {
           setSystemStatus(prev => ({ ...prev, simulationRunning: true }));
+          toast({
+            title: "Simulation Online",
+            description: "Digital twin simulation has been successfully restarted",
+          });
         }, 2000);
         break;
+        
       case 'emergency-stop':
         setSystemStatus(prev => ({ 
           ...prev, 
           simulationRunning: false, 
           dataStreaming: false 
         }));
+        toast({
+          title: "Emergency Stop Activated",
+          description: "All systems have been safely stopped",
+          variant: "destructive",
+        });
         break;
+        
       case 'reset-system':
-        // Reset all controls to default
-        window.location.reload();
+        toast({
+          title: "System Reset",
+          description: "Resetting all controls to default values...",
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         break;
     }
   };
@@ -231,8 +265,7 @@ export const ControlPanel = () => {
           
           <Button
             onClick={() => handleSystemAction('reset-system')}
-            variant="outline"
-            className="border-slate-600 text-slate-300 hover:bg-slate-700"
+            className="bg-green-600 hover:bg-green-700 text-white"
           >
             <Power className="w-4 h-4 mr-2" />
             Reset System
