@@ -4,6 +4,7 @@ import { MapContainer } from '../components/MapContainer';
 import { AssetMonitor } from '../components/AssetMonitor';
 import { ControlPanel } from '../components/ControlPanel';
 import { MetricsPanel } from '../components/MetricsPanel';
+import { AppDownloadFloater } from '../components/AppDownloadFloater';
 import { Activity, Map, Settings, BarChart3, Cpu, Satellite } from 'lucide-react';
 
 const Index = () => {
@@ -82,6 +83,9 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      {/* App Download Floater */}
+      <AppDownloadFloater />
     </div>
   );
 };
