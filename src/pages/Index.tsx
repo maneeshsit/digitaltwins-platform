@@ -5,6 +5,7 @@ import { AssetMonitor } from '../components/AssetMonitor';
 import { ControlPanel } from '../components/ControlPanel';
 import { MetricsPanel } from '../components/MetricsPanel';
 import { AppDownloadFloater } from '../components/AppDownloadFloater';
+import { CookieConsent } from '../components/CookieConsent';
 import { Activity, Map, Settings, BarChart3, Cpu, Satellite } from 'lucide-react';
 
 const Index = () => {
@@ -86,6 +87,9 @@ const Index = () => {
 
       {/* App Download Floater */}
       <AppDownloadFloater />
+      
+      {/* Cookie Consent Dialog */}
+      <CookieConsent />
     </div>
   );
 };
